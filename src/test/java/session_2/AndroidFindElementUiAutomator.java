@@ -16,5 +16,12 @@ public class AndroidFindElementUiAutomator {
         AppiumDriver driver = uiAutomator.initializeAppiumDriverViaUiAutomator();
 
         WebElement element = driver.findElement(AppiumBy.androidUIAutomator("new UiSelector().text(\"Accessibility\")"));
+        System.out.println("Accessibility Id: " + element.getText());
+
+        element = driver.findElements(AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.TextView\")")).get(2);
+        System.out.println("ClassName: " + element.getText());
+
+        element = driver.findElement(AppiumBy.androidUIAutomator("new UiSelector().description(\"Accessibility\")"));
+        System.out.println("Description: " + element.getText());
     }
 }
