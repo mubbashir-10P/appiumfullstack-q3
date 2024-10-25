@@ -1,12 +1,13 @@
 package pages;
 
 import base.AppDriver;
+import base.AppFactory;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LoginPage extends AppFactory {
     public LoginPage(){
         PageFactory.initElements(new AppiumFieldDecorator(AppDriver.getDriver()), this);
     }
@@ -22,14 +23,15 @@ public class LoginPage {
 
 
     public void enterUserName(String userName){
-        userNameTextBox.sendKeys(userName);
+        sendKeys(userNameTextBox, userName);
     }
 
     public void enterPassword(String password){
-        passwordTextBox.sendKeys(password);
+        sendKeys(passwordTextBox, password);
     }
 
-    public void clickLoginButton(){
-        loginButton.click();
+    public ProductPage clickLoginButton(){
+        clickElement(loginButton);
+        return new ProductPage();
     }
 }
