@@ -1,15 +1,14 @@
 package base;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import utils.ConfigReader;
+import utils.Utilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +18,26 @@ public class AppFactory {
 
     public static AppiumDriver appiumDriver;
     public static  ConfigReader configReader;
+    protected Utilities utilities = new Utilities();
+    protected static AppiumDriverLocalService service;
+
+    @BeforeSuite
+    public void upAndRunningAppiumServer(){
+        service = getAppiumServerDefault();
+        if(!utilities.checkIfAppiumServerIsRunning(4723)){
+            service.start();
+            service.clearOutPutStreams();
+            System.out.println("Starting appium server...");
+        }else {
+            System.out.println("Appium Server is already up and running...");
+        }
+    }
+
+    @AfterSuite
+    public void shutDownServer(){
+        service.stop();
+        System.out.println("Appium server shutdown...");
+    }
 
     @BeforeTest
     @Parameters({"platformName","platformVersion","deviceName"})
@@ -49,6 +68,10 @@ public class AppFactory {
         }
     }
 
+    public AppiumDriverLocalService getAppiumServerDefault(){
+        return AppiumDriverLocalService.buildDefaultService();
+    }
+
     public void waitForVisibility(WebElement element) {
         WebDriverWait wait = new WebDriverWait(appiumDriver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -67,6 +90,12 @@ public class AppFactory {
     public String getAttribute(WebElement element, String attribute) {
         waitForVisibility(element);
         return element.getAttribute(attribute);
+    }
+
+    public  String getText(WebElement element, String message){
+        String elementText = null;
+        elementText = getAttribute(element,"text");
+        return  elementText;
     }
 
     @AfterTest

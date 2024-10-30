@@ -21,6 +21,9 @@ public class LoginPage extends AppFactory {
     @AndroidFindBy(xpath = "//android.widget.TextView[@text=\"LOGIN\"]")
     public WebElement loginButton;
 
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Username and password do not match any user in this service.\"]")
+    private WebElement errorMessage;
+
 
     public void enterUserName(String userName){
         sendKeys(userNameTextBox, userName);
@@ -34,4 +37,10 @@ public class LoginPage extends AppFactory {
         clickElement(loginButton);
         return new ProductPage();
     }
+
+    public String getErrorMessage(){
+        return  getText(errorMessage,"Error text is: ");
+    }
+
+
 }

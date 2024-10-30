@@ -7,8 +7,30 @@ import pages.LoginPage;
 import pages.ProductPage;
 
 public class Login extends AppFactory {
-    @Test
-    public void TestingDriverInitialize() throws InterruptedException {
+
+    @Test(priority = 1)
+    public void verifyInvalidUserName() throws InterruptedException {
+        System.out.println("Verifying Valid credentials");
+        LoginPage loginPage = new LoginPage();
+
+        loginPage.enterUserName("invalidUser");
+        loginPage.enterPassword("invalidPassword");
+
+        loginPage.clickLoginButton();
+
+        String expectedErrorMessage = "Username and password do not match any user in this service.";
+        String actualErrorMessage = loginPage.getErrorMessage();
+
+        Assert.assertEquals(actualErrorMessage,expectedErrorMessage,"Login not failed!");
+
+        System.out.println("Login Failed");
+        Thread.sleep(3000);
+    }
+
+
+
+    @Test(priority = 2)
+    public void TestingWithValidUserName() throws InterruptedException {
 
         String username = "standard_user";
         String password = "secret_sauce";
