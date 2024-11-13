@@ -41,6 +41,4 @@ public class LoginPage extends AppFactory {
     public String getErrorMessage(){
         return  getText(errorMessage,"Error text is: ");
     }
-
-
 }
