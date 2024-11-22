@@ -28,8 +28,10 @@ public class AppFactory {
             service.start();
             service.clearOutPutStreams();
             System.out.println("Starting appium server...");
+            utilities.log().info("Starting appium server...");
         }else {
             System.out.println("Appium Server is already up and running...");
+            utilities.log().info("Appium Server is already up and running...");
         }
     }
 
@@ -37,6 +39,7 @@ public class AppFactory {
     public void shutDownServer(){
         service.stop();
         System.out.println("Appium server shutdown...");
+        utilities.log().info("Shutting down Appium server.");
     }
 
     @BeforeTest
@@ -45,6 +48,7 @@ public class AppFactory {
         try{
             configReader = new ConfigReader();
             System.out.println("Initializing Appium Driver");
+            utilities.log().info("Initializing appium driver");
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -62,9 +66,11 @@ public class AppFactory {
 
             AppDriver.setDriver(appiumDriver);
             System.out.println("Appium Driver Is Initialized Successfully!");
+            utilities.log().info("Appium Driver Is Initialized Successfully!");
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("Failed to initialize Appium Driver!");
+            utilities.log().error("Failed to initialize Appium Driver!");
         }
     }
 
