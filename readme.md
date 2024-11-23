@@ -1,3 +1,17 @@
+# Appium Fullstack training course content.
+| S.no  | Branch Name   | Description   | Branch URL   |
+|:-----:| :------------: | :------------: | :------------: |
+|   1   |Session-1  |Introduction to Appium/Desired capabilities.   | https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-1  |
+|   2   |Session-2   |UIAutomator2 - Selectors   |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-2   |
+|   3   |Session-3   |Android Gestures   |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-3   |
+|   4   | Session-4  |Framework Development- Project Structure - POM   |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-4   |
+|   5   | Session-5   |Read android capabilities from config file.   |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-5   |
+|   6   | Session-6  | Start Appium from Code - Added more test cases |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-6   |
+|   7   |Session-7   |Log4j2- testNG listeneres.    | https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-7  |
+|   8   |Session-8 |Extent Report - Screenshots |https://github.com/mubbashir-10P/appiumfullstack-q3/tree/session-8   |
+|   9   |Session-9 |Continous Integration via Jenkins|  |
+|  10   |Bonus | Test data handling | | 
+
 # Appium Installation Guide.
 
 ## Steps
