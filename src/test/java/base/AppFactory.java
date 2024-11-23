@@ -1,5 +1,6 @@
 package base;
 
+import com.aventstack.extentreports.Status;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
+import reports.ExtentReport;
 import utils.ConfigReader;
 import utils.Utilities;
 
@@ -20,6 +22,7 @@ public class AppFactory {
     public static  ConfigReader configReader;
     protected Utilities utilities = new Utilities();
     protected static AppiumDriverLocalService service;
+    protected static String dateTime;
 
     @BeforeSuite
     public void upAndRunningAppiumServer(){
@@ -38,7 +41,6 @@ public class AppFactory {
     @AfterSuite
     public void shutDownServer(){
         service.stop();
-        System.out.println("Appium server shutdown...");
         utilities.log().info("Shutting down Appium server.");
     }
 
@@ -47,7 +49,8 @@ public class AppFactory {
     public void initializer(String platformName, String platformVersion, String deviceName) throws MalformedURLException {
         try{
             configReader = new ConfigReader();
-            System.out.println("Initializing Appium Driver");
+            dateTime = utilities.getDateTime();
+
             utilities.log().info("Initializing appium driver");
 
             DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -65,11 +68,11 @@ public class AppFactory {
             appiumDriver = new AppiumDriver(new URL(configReader.appiumServerEndpointURL()), capabilities);
 
             AppDriver.setDriver(appiumDriver);
-            System.out.println("Appium Driver Is Initialized Successfully!");
+
             utilities.log().info("Appium Driver Is Initialized Successfully!");
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("Failed to initialize Appium Driver!");
+
             utilities.log().error("Failed to initialize Appium Driver!");
         }
     }
@@ -83,14 +86,20 @@ public class AppFactory {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void clickElement(WebElement element) {
+    public void clickElement(WebElement element, String message) {
         waitForVisibility(element);
         element.click();
+
+        utilities.log().info(message);
+        ExtentReport.getTest().log(Status.INFO,message);
     }
 
-    public void sendKeys(WebElement element, String text) {
+    public void sendKeys(WebElement element, String text, String message) {
         waitForVisibility(element);
         element.sendKeys(text);
+
+        utilities.log().info(message);
+        ExtentReport.getTest().log(Status.INFO,message);
     }
 
     public String getAttribute(WebElement element, String attribute) {
@@ -101,7 +110,14 @@ public class AppFactory {
     public  String getText(WebElement element, String message){
         String elementText = null;
         elementText = getAttribute(element,"text");
+
+        utilities.log().info(message);
+        ExtentReport.getTest().log(Status.INFO,message + elementText);
         return  elementText;
+    }
+
+    public static String getDateAndTime(){
+        return dateTime;
     }
 
     @AfterTest

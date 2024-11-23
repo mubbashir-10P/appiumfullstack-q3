@@ -26,15 +26,15 @@ public class LoginPage extends AppFactory {
 
 
     public void enterUserName(String userName){
-        sendKeys(userNameTextBox, userName);
+        sendKeys(userNameTextBox, userName, "User name is: "+ userName);
     }
 
     public void enterPassword(String password){
-        sendKeys(passwordTextBox, password);
+        sendKeys(passwordTextBox, password, "entered password in field!");
     }
 
     public ProductPage clickLoginButton(){
-        clickElement(loginButton);
+        clickElement(loginButton, "Login button clicked!");
         return new ProductPage();
     }
 
